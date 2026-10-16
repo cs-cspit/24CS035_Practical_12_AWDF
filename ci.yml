@@ -1,0 +1,56 @@
+name: CI Pipeline
+
+# Trigger workflow on pushes to main and pull requests targeting main (Supplementary Problem 2)
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Supplementary Problem 1: Linting job running before the automated test job
+  lint:
+    name: Code Quality & Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: TaskManagerAPI/package-lock.json
+
+      - name: Install Dependencies
+        run: |
+          npm install
+          cd TaskManagerAPI && npm install
+
+      - name: Run ESLint Linter
+        run: npm run lint
+
+  # Primary Job: Build & Automated Unit/Integration Testing (Lab Steps 1-3)
+  build-and-test:
+    name: Build & Automated Tests
+    runs-on: ubuntu-latest
+    needs: [lint] # Enforce lint job completion prior to test execution
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: TaskManagerAPI/package-lock.json
+
+      - name: Install Dependencies
+        run: |
+          npm install
+          cd TaskManagerAPI && npm install
+
+      - name: Run Automated Tests (Jest & Supertest)
+        run: npm test

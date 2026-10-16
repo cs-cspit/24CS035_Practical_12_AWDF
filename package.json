@@ -1,0 +1,30 @@
+{
+  "name": "taskmanagerapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest --detectOpenHandles --forceExit",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.9.4",
+    "node-cache": "^5.1.2",
+    "puppeteer-core": "^25.12.0"
+  },
+  "devDependencies": {
+    "eslint": "^10.12.0",
+    "jest": "^30.5.2",
+    "supertest": "^7.3.1"
+  }
+}
